@@ -12,6 +12,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "mongodb": "^2.2.33",
-    "mongojs": "^2.4.1"
+    "mongojs": "^2.4.1",
+    "uuid": "^3.1.0"
   }
 }

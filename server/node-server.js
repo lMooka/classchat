@@ -1,8 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-var app = express();
 var uuid = require("uuid");
+
+var app = express();
 var mongodb = undefined;
 
 // MongoDB
@@ -36,10 +37,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(3000, function() {
     console.log(`Server running at http://localhost:3000/`);
-});
-
-app.get('/', function(req, res) {
-    res.json(message);
 });
 
 // createuser
@@ -83,28 +80,47 @@ app.get('/changeusername', function(req, res) {
 app.get('/messages', function(req, res) {
     var chatid = req.param('chatid');
     var after = Number(req.param('after'));
-    console.log(after);
 
     if(chatid == undefined) {
         res.json({error:'No chatId sent. Use /messages?chatid=(string)'});
         return;
     }
     var resultArray = [];
-    if(after == undefined) {
+    if(after == NaN) {
         // recupera todas as mensagens
-        var cursor = mongodb.collection('messages').find({'chatid' : chatid});
-        cursor.forEach(function(doc, err) {
-          resultArray.push(doc);
-        }, function() {
-          res.json(resultArray);
-        });
-    } else {
-        // recupera mensagens depois do datetime passado (after)
-        var cursor = mongodb.collection('messages').find({'chatid' : chatid, datetime : { $gt : after}});
-        cursor.forEach(function(doc, err) {
-          resultArray.push(doc);
-        }, function() {
-          res.json(resultArray);
-        });
+        after = 'default';
     }
+    // recupera mensagens depois do datetime passado (after)
+    var cursor = mongodb.collection('messages').find({"chatid" : chatid, "creation_date" : { "$gt" : after}});
+    cursor.forEach(function(doc, err) {
+        resultArray.push(doc);
+    }, function() {
+        res.json(resultArray);
+    });
 });
+
+app.get('/send', function(req, res) {
+    var chatid = req.param('chatid');
+    var userid = req.param('userid');
+    var message = req.param('message');
+
+    // Verifica se as informações passadas estão corretas
+    if(chatid == NaN || userid == NaN || message == NaN) {
+        res.json({ error : "wrong params"});
+        return;
+    }
+
+    // Cria o objeto da mensagem para inserir no banco
+    message = {
+        "chatid" : chatid,
+        "userid" : userid,
+        "message" : message,
+        "creation_date" : new Date().getTime()
+    };
+
+    /* mongodb insert */
+    mongodb.collection('messages').insertOne(message);
+    console.log(`${chatid}-${userid}: ${message.message}`);
+    res.json({ success : "message added123"});
+});
+
