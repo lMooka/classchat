@@ -149,5 +149,4 @@ btnSendMessage.addEventListener("click", function() {
     WSSendMessage(messageInput.value);
     return;
 });
-
-//WSCreateUser();
+WSRefreshChat();
