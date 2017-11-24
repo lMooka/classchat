@@ -1,8 +1,7 @@
 // Declarações
 var refreshButton = document.getElementById("btn");
 var messageSection = document.getElementById("messageSection");
-var requestUrl = 'http://www.json-generator.com/api/json/get/bSvyAGhGgi';
-var requestCounter = -1;
+var requestUrl = 'http://localhost:3000';
 
 // Metodos
 function generateMessageHtml(title, description, content) {
@@ -20,7 +19,6 @@ function generateMessageHtml(title, description, content) {
 }
 
 function refreshChat() {
-    requestCounter++;
     var ajax = new XMLHttpRequest();
     ajax.open('GET', requestUrl);
     ajax.onload = function() {
@@ -31,8 +29,10 @@ function refreshChat() {
 }
 
 function onChatReceived(data) {
-    var messageHtml = generateMessageHtml(data[requestCounter].email, data[requestCounter].registered, data[requestCounter].greeting);
-    messageSection.insertAdjacentElement('afterbegin', messageHtml);
+    for(i = 0; i < data.length; i++) {
+        var messageHtml = generateMessageHtml(data[i].username, data[i].datetime, data[i].message);
+        messageSection.insertAdjacentElement('afterbegin', messageHtml);
+    }
 }
 
 // Eventos
