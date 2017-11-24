@@ -11,16 +11,7 @@ var uri = "mongodb://classchat:classchat123@classchat-shard-00-00-jmrw7.mongodb.
 MongoClient.connect(uri, function(err, db) {
     console.log("connected to mongodb.")
     mongodb = db;
-});
-
-var message = [{
-    userid:'KdhAUoe2-43',
-    username:'Guilherme',
-    datetime:'23-11-2017 11:39:40',
-    message:'Hello World'
-}];
-
-// uses
+});// uses
 app.use(function (req, res, next) {
     
         // Website you wish to allow to connect
@@ -91,14 +82,15 @@ app.get('/changeusername', function(req, res) {
 
 app.get('/messages', function(req, res) {
     var chatid = req.param('chatid');
-    var after = req.param('after');
+    var after = Number(req.param('after'));
+    console.log(after);
 
     if(chatid == undefined) {
         res.json({error:'No chatId sent. Use /messages?chatid=(string)'});
         return;
     }
     var resultArray = [];
-    if(after != undefined) {
+    if(after == undefined) {
         // recupera todas as mensagens
         var cursor = mongodb.collection('messages').find({'chatid' : chatid});
         cursor.forEach(function(doc, err) {
