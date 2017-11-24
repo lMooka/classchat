@@ -18,7 +18,7 @@ var message = [{
     username:'Guilherme',
     datetime:'23-11-2017 11:39:40',
     message:'Hello World'
-}]
+}];
 
 // uses
 app.use(function (req, res, next) {
@@ -81,7 +81,6 @@ app.get('/changeusername', function(req, res) {
             function(err, results) {
               var cursor = mongodb.collection('users').find({'userid' : userid});
               cursor.forEach(function(doc, err) {
-                //assert.equal(null, err);
                 resultArray.push(doc);
               }, function() {
                 res.json(resultArray);
@@ -98,10 +97,22 @@ app.get('/messages', function(req, res) {
         res.json({error:'No chatId sent. Use /messages?chatid=(string)'});
         return;
     }
-        
+    var resultArray = [];
     if(after != undefined) {
-
+        // recupera todas as mensagens
+        var cursor = mongodb.collection('messages').find({'chatid' : chatid});
+        cursor.forEach(function(doc, err) {
+          resultArray.push(doc);
+        }, function() {
+          res.json(resultArray);
+        });
+    } else {
+        // recupera mensagens depois do datetime passado (after)
+        var cursor = mongodb.collection('messages').find({'chatid' : chatid, datetime : { $gt : after}});
+        cursor.forEach(function(doc, err) {
+          resultArray.push(doc);
+        }, function() {
+          res.json(resultArray);
+        });
     }
-
-    res.json(message);
 });
