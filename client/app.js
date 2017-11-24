@@ -121,7 +121,7 @@ function generateMessageHtml(title, description, content) {
     
     article.classList.add('box-left');
     article.innerHTML = 
-    '<article class="box">' +
+    '<article ng-controller="" class="box">' +
         `<div class="title">${title}</div>` + 
         `<div class="description">${description}</div>` +
         `<div class="content">${content}</div>` +
@@ -149,4 +149,5 @@ btnSendMessage.addEventListener("click", function() {
     WSSendMessage(messageInput.value);
     return;
 });
+
 WSRefreshChat();
