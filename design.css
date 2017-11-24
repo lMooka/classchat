@@ -2,6 +2,9 @@
   --primary-color: #03A9F4;
   --primary-color-light: #29B6F6;
   --primary-color-dark: #039BE5;
+  --secondary-color: #E91E63;
+  --secondary-color-light: #EC407A;
+  --secondary-color-dark: #D81B60;
 }
 
 body {
@@ -11,22 +14,23 @@ body {
   background-color: #E3F2FD;
 }
 
-.menu ul {
+.menu ul, .menu-chat ul {
     position: relative;
     min-width: 600px;
     margin: 8px;
     border-radius: 8px;
-    background-color: var(--primary-color-dark);
     list-style:none;
 }
-.menu ul li {
+.menu ul {
+  background-color: var(--primary-color-dark);
+}
+.menu ul li, .menu-chat ul li {
   display: inline;
 }
-.menu ul li a {
+.menu ul li a, .menu-chat ul li a {
     padding: 16px;
     display: inline-block;
     color: white;
-    
     font-weight: bold;
     text-decoration: none;
     border-radius: 8px;
@@ -34,11 +38,26 @@ body {
 .menu ul li a:hover {
     background-color: var(--primary-color-light);
 }
-.menu ul li a:link {
+.menu ul li a:link, .menu-chat ul li a:link {
   color: white;
 }
-.menu ul li a:link {
+.menu ul li a:link, .menu-chat ul li a:link {
   color: white;
+}
+
+.menu-chat ul li a:hover {
+  background-color: var(--secondary-color-dark);
+}
+.menu-chat ul {
+  background-color: var(--secondary-color-light);
+}
+.menu-chat ul li input {
+  width: 80%;
+  min-height: 40px;
+  max-height: 40px;
+  border-color: null;
+  border-radius: 4px;
+  margin-right: 8px;
 }
 
 .box {

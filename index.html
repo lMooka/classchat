@@ -6,14 +6,25 @@
 	<body>
 		<nav id="menu" class="menu">
 			<ul>
-			    <li><a href="#" id="btn">Atualizar</a></li>
-			    <li><a href="#">Mensagens</a></li>
+			    <li><a href="#refresh" id="btn">Atualizar</a></li>
+                <li><a href="#chat">Chat</a></li>
+                <li><a href="#perfil">Perfil</a></li>
 			</ul>
-		</nav>
-		<section>
-            <div id="messageSection"></div>
-        </section>
-        <footer id="footer"></footer>
+        </nav>
+        <div id="chat"> 
+            <section id="sectionMessageSend">
+                <div id="menu" class="menu-chat">
+                    <ul>
+                        <li><input id="btnMessageSend"/></li>
+                        <li><a href="#">Enviar</a></li>
+                    </ul>
+                </nav>
+            </section>
+            <section>
+                <div id="messageSection"></div>
+            </section>
+        </div>
+
         <script src="app.js"></script>
     </body>
 </html>
