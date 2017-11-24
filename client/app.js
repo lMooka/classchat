@@ -1,7 +1,43 @@
 // Declarações
 var refreshButton = document.getElementById("btn");
 var messageSection = document.getElementById("messageSection");
+var user = undefined;
+
+// URLs
 var requestUrl = 'http://localhost:3000';
+var requestUrlCreateUser = 'http://localhost:3000/createuser'
+
+function auth() {
+    if(user != undefined)
+        return;
+
+    user = JSON.parse(localStorage['classchat_user']);
+    if(user == undefined) {
+        var ajax = new XMLHttpRequest();
+        ajax.open('GET', requestUrlCreateUser);
+        ajax.onload = function() {
+            console.log(JSON.parse(ajax.responseText));
+            user = JSON.parse(ajax.responseText);
+            localStorage['classchat_user'] = ajax.responseText;
+            console.log('logged as '+ user.username +', ' + user.userid);
+        };
+        ajax.send();
+    } else {
+        console.log('logged as '+ user.username +', ' + user.userid);
+    }
+}
+
+function changeUsername() {
+    var ajax = new XMLHttpRequest();
+    ajax.open('GET', requestUrlCreateUser);
+    ajax.onload = function() {
+        console.log(JSON.parse(ajax.responseText));
+        user = JSON.parse(ajax.responseText);
+        localStorage['classchat_user'] = ajax.responseText;
+        console.log('logged as '+ user.username +', ' + user.userid);
+    };
+    ajax.send();
+}
 
 // Metodos
 function generateMessageHtml(title, description, content) {
@@ -19,6 +55,10 @@ function generateMessageHtml(title, description, content) {
 }
 
 function refreshChat() {
+    if(user == undefined) {
+        auth();
+    }
+
     var ajax = new XMLHttpRequest();
     ajax.open('GET', requestUrl);
     ajax.onload = function() {
