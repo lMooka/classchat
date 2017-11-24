@@ -1,0 +1,73 @@
+:root {
+  --primary-color: #03A9F4;
+  --primary-color-light: #29B6F6;
+  --primary-color-dark: #039BE5;
+}
+
+body {
+  margin-left: 15%;
+  width: 60%;
+  align-content: center;
+  background-color: #E3F2FD;
+}
+
+.menu ul {
+    position: relative;
+    min-width: 600px;
+    margin: 8px;
+    border-radius: 8px;
+    background-color: var(--primary-color-dark);
+    list-style:none;
+}
+.menu ul li {
+  display: inline;
+}
+.menu ul li a {
+    padding: 16px;
+    display: inline-block;
+    color: white;
+    
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+}
+.menu ul li a:hover {
+    background-color: var(--primary-color-light);
+}
+.menu ul li a:link {
+  color: white;
+}
+.menu ul li a:link {
+  color: white;
+}
+
+.box {
+  overflow: auto;
+  margin: 8px;
+  padding: 16px;
+  background: white;
+  box-shadow: 2px 2px 0px 0px var(--primary-color-light);
+  border-radius: 8px;
+  grid-template-columns: 66% 30%;
+}
+
+.box-left {
+  width: 100%;
+}
+
+.box > .title {
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.box > .description {
+  margin-top: 16px;
+  font-size: 12px;
+  color: gray;
+}
+
+.box > .content {
+  margin-top: 16px;
+  font-size: 18px;
+}
