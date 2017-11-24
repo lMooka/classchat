@@ -12,7 +12,9 @@ var uri = "mongodb://classchat:classchat123@classchat-shard-00-00-jmrw7.mongodb.
 MongoClient.connect(uri, function(err, db) {
     console.log("connected to mongodb.")
     mongodb = db;
-});// uses
+});
+
+// uses
 app.use(function (req, res, next) {
     
         // Website you wish to allow to connect
@@ -35,6 +37,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Inicia o server
 app.listen(3000, function() {
     console.log(`Server running at http://localhost:3000/`);
 });
@@ -97,6 +100,10 @@ app.get('/messages', function(req, res) {
     }, function() {
         res.json(resultArray);
     });
+});
+
+app.get('/users', function(req, res) {
+    
 });
 
 app.get('/send', function(req, res) {

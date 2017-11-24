@@ -11,6 +11,7 @@ var chatid = undefined;
 var chatusers = undefined;
 
 var messageArray = [];
+var chatUsers = [];
 
 // URLs
 var requestUrl = 'http://localhost:3000';
@@ -116,15 +117,15 @@ function WSSendMessage(message) {
 
 /* --------- Metodos ---------- */
 
-function generateMessageHtml(title, description, content) {
+function generateMessageHtml(username, date, message) {
     var article = document.createElement('div');
     
     article.classList.add('box-left');
     article.innerHTML = 
     '<article ng-controller="" class="box">' +
-        `<div class="title">${title}</div>` + 
-        `<div class="description">${description}</div>` +
-        `<div class="content">${content}</div>` +
+        `<div class="title">${username}</div>` + 
+        `<div class="description">${date}</div>` +
+        `<div class="content">${message}</div>` +
     '</article>';
 
     return article;
@@ -134,7 +135,7 @@ function onChatReceived(data) {
     for(i = 0; i < data.length; i++) {
         messageArray.push(data[i]);
         console.log(JSON.stringify(data));
-        var messageHtml = generateMessageHtml(data[i].userid, new Date(data[i].creation_date).toLocaleString(), data[i].message);
+        var messageHtml = generateMessageHtml(getUserName(data[i].userid), new Date(data[i].creation_date).toLocaleString(), data[i].message);
         messageSection.insertAdjacentElement('afterbegin', messageHtml);
     }
 }
@@ -151,3 +152,16 @@ btnSendMessage.addEventListener("click", function() {
 });
 
 WSRefreshChat();
+
+
+
+/* ----- @Aula ------ */
+function getUserName(userid) {
+    for(i = 0; i < chatUsers.length; i++) {
+        if(chatUsers.userid == userid) {
+            return chatUsers[i].username;
+        }
+    }
+
+    return userid;
+}
