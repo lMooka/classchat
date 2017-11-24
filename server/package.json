@@ -1,0 +1,15 @@
+{
+  "name": "classchat",
+  "version": "1.0.0",
+  "description": "ClassChat App Server",
+  "main": "node-server.js",
+  "scripts": {
+    "test": "node node-server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  }
+}
